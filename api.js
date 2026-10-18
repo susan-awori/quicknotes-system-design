@@ -22,3 +22,24 @@ async function request(url, options) {
   const data = await response.json();
   return { data: data, status: response.status };
 }
+
+function createNoteItem(note, isLocal) {
+  const li = document.createElement("li");
+  li.dataset.id = note.id;
+  li.dataset.local = isLocal ? "true" : "false";
+  li.dataset.localKey = isLocal ? String(++localCounter) : "";
+
+  const title = document.createElement("h3");
+  title.textContent = note.title;
+
+  const body = document.createElement("p");
+  body.textContent = note.body || "(no body)";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.textContent = "Delete";
+  deleteBtn.className = "delete-btn";
+
+  li.append(title, body, deleteBtn);
+  return li;
+}
