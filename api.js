@@ -73,3 +73,46 @@ async function loadNotes() {
 
 loadBtn.addEventListener("click", loadNotes);
 showEmptyState();
+
+async function createNote(event) {
+  event.preventDefault(); // stop the page from reloading
+
+  const title = titleInput.value.trim();
+  const body = bodyInput.value.trim();as
+
+  // title required only body is optional.
+  if (title === "") {
+    setStatus("Please enter a title.", "error");
+    titleInput.focus();
+    return;
+  }
+  if (title.length > 100) {
+    setStatus("The title is too long (" + title.length + " characters). The maximum is 100.", "error");
+    titleInput.focus();
+    return;
+  }
+
+  setStatus("Creating note...", "loading");
+  setBusy(true);
+
+  try {
+    const result = await request(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: title, body: body, userId: 1 })
+    });
+
+    removeEmptyState();
+    notesList.prepend(createNoteItem(result.data, true)); // top of the list
+
+    setStatus("Note created (status " + result.status + ", id " + result.data.id + ").", "success");
+    noteForm.reset(); // clear the form
+  } catch (error) {
+    setStatus("Sorry, we could not create the note. Please try again.", "error");
+    console.error(error);
+  } finally {
+    setBusy(false);
+  }
+}
+
+noteForm.addEventListener("submit", createNote);
