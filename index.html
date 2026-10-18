@@ -4,31 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickNotes API Client</title>
+
+  <!-- Fancy fonts (the page still works without them) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
   <script src="api.js" defer></script>
 </head>
 <body>
+  <header class="hero">
+    <p class="eyebrow">Your thoughts, beautifully kept</p>
+    <h1>QuickNotes</h1>
+    <p class="subtitle">A refined API client for loading, creating and deleting notes.</p>
+    <button id="load-btn" type="button" class="btn-gold">Load notes</button>
+  </header>
+
   <main>
-    <h1>QuickNotes API Client</h1>
-
-    <button id="load-btn" type="button">Load notes</button>
-
     <p id="status" role="status"></p>
 
-    <form id="note-form">
-      <h2>Create a note</h2>
+    <section class="panel">
+      <form id="note-form">
+        <h2>Create a note</h2>
 
-      <label for="title-input">Title (required, max 100 characters)</label>
-      <input type="text" id="title-input" name="title">
+        <label for="title-input">Title <span class="hint">required, max 100 characters</span></label>
+        <input type="text" id="title-input" name="title" placeholder="A title worth remembering">
 
-      <label for="body-input">Body (optional)</label>
-      <textarea id="body-input" name="body" rows="4"></textarea>
+        <label for="body-input">Body <span class="hint">optional</span></label>
+        <textarea id="body-input" name="body" rows="4" placeholder="Write something elegant..."></textarea>
 
-      <button type="submit" id="submit-btn">Create note</button>
-    </form>
+        <button type="submit" id="submit-btn" class="btn-gold">Create note</button>
+      </form>
+    </section>
 
-    <h2>Notes</h2>
-    <ul id="notes-list"></ul>
+    <section class="panel">
+      <h2>Your notes</h2>
+      <ul id="notes-list"></ul>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>QuickNotes &middot; System Design Project</p>
+  </footer>
 </body>
 </html>

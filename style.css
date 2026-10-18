@@ -1,3 +1,22 @@
+/* ---------- Paint pots (colours) ---------- */
+:root {
+  --bg: #0b0b0f;
+  --bg-soft: #14141c;
+  --panel: rgba(255, 255, 255, 0.04);
+  --panel-border: rgba(212, 175, 55, 0.25);
+  --text: #f3efe6;
+  --muted: #a49f93;
+  --gold: #d4af37;
+  --gold-light: #f1d97a;
+  --gold-dark: #9c7a1c;
+  --ruby: #ff6b6b;
+  --emerald: #5fd6a0;
+  --amber: #f1c75b;
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --sans: "Inter", Arial, Helvetica, sans-serif;
+}
+
+/* ---------- Reset and base ---------- */
 *,
 *::before,
 *::after {
@@ -6,113 +25,335 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
-  color: #222;
-  background: #f0f2f5;
+  min-height: 100vh;
+  font-family: var(--sans);
+  line-height: 1.6;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(212, 175, 55, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 30%, rgba(120, 90, 200, 0.10), transparent 40%),
+    var(--bg);
+  background-attachment: fixed;
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Hero (the grand entrance) ---------- */
+.hero {
+  text-align: center;
+  padding: 72px 20px 48px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  max-width: 480px;
+  margin: 12px auto 28px;
+  color: var(--muted);
+}
+
+/* ---------- Layout ---------- */
 main {
-  max-width: 700px;
-  margin: 24px auto;
-  padding: 0 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
 }
 
-h1 {
-  color: #1e3a5f;
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 28px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
-form {
-  background: white;
-  padding: 16px;
-  margin: 16px 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.panel h2,
+form h2 {
+  margin: 0 0 20px;
+  font-size: 1.6rem;
+  color: var(--gold-light);
 }
 
+/* ---------- Form ---------- */
 label {
   display: block;
-  font-weight: bold;
-  margin: 8px 0 4px;
+  margin: 16px 0 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.hint {
+  margin-left: 6px;
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--muted);
 }
 
 input,
 textarea {
   display: block;
   width: 100%;
-  padding: 8px;
+  padding: 12px 14px;
   font: inherit;
-  border: 1px solid #999;
-  border-radius: 6px;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: #6f6b62;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+/* ---------- Buttons ---------- */
 button {
-  background: #1e3a5f;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  margin-top: 8px;
-  border-radius: 6px;
-  font-size: 1rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: opacity 0.3s;
+  transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s, opacity 0.3s;
 }
 
-button:hover {
-  opacity: 0.85;
+.btn-gold {
+  margin-top: 20px;
+  padding: 13px 32px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1a1405;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold) 55%, var(--gold-dark));
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
+}
+
+.hero .btn-gold {
+  margin-top: 0;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.45);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Status messages: three distinct looks */
+/* ---------- Status messages (3 distinct looks) ---------- */
 #status {
-  min-height: 1.5em;
-  padding: 8px 12px;
-  border-radius: 6px;
+  margin: 0 0 28px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+#status:empty {
+  display: none;
+}
+
+#status::before {
+  margin-right: 10px;
+  font-weight: 700;
 }
 
 #status.loading {
-  background: #fff4cc;
-  color: #7a5b00;
+  color: var(--amber);
+  background: rgba(241, 199, 91, 0.08);
+  border-color: rgba(241, 199, 91, 0.35);
+}
+
+#status.loading::before {
+  content: "\23F3"; /* hourglass */
 }
 
 #status.success {
-  background: #d9f2dd;
-  color: #17692a;
+  color: var(--emerald);
+  background: rgba(95, 214, 160, 0.08);
+  border-color: rgba(95, 214, 160, 0.35);
+}
+
+#status.success::before {
+  content: "\2713"; /* check mark */
 }
 
 #status.error {
-  background: #fde0e0;
-  color: #a11212;
-  font-weight: bold;
+  color: var(--ruby);
+  background: rgba(255, 107, 107, 0.10);
+  border-color: rgba(255, 107, 107, 0.45);
+  font-weight: 700;
 }
 
-/* Notes list */
+#status.error::before {
+  content: "\2715"; /* cross */
+}
+
+/* ---------- Notes list ---------- */
 #notes-list {
   list-style: none;
+  margin: 0;
   padding: 0;
+  display: grid;
+  gap: 16px;
 }
 
 #notes-list li {
-  background: white;
-  padding: 12px 16px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding: 20px 22px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-left: 3px solid var(--gold);
+  border-radius: 12px;
+  animation: fadeUp 0.5s ease both;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+#notes-list li:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+#notes-list h3 {
+  margin: 0 0 6px;
+  padding-right: 60px;
+  font-size: 1.15rem;
+  color: var(--gold-light);
+  text-transform: capitalize;
+}
+
+#notes-list p {
+  margin: 0 0 14px;
+  color: var(--muted);
 }
 
 #notes-list li.empty {
   text-align: center;
-  color: #666;
+  padding: 32px 20px;
+  color: var(--muted);
+  font-style: italic;
+  border: 1px dashed rgba(212, 175, 55, 0.35);
+  border-left: 1px dashed rgba(212, 175, 55, 0.35);
 }
 
-#notes-list h3 {
-  margin: 0 0 4px;
+#notes-list li.empty:hover {
+  transform: none;
+  box-shadow: none;
 }
 
-#notes-list p {
-  margin: 0 0 8px;
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+}
+
+.delete-btn {
+  padding: 7px 18px;
+  color: var(--ruby);
+  background: transparent;
+  border: 1px solid rgba(255, 107, 107, 0.5);
+  border-radius: 999px;
+}
+
+.delete-btn:hover {
+  color: #1a0505;
+  background: var(--ruby);
+  border-color: var(--ruby);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ---------- Animation ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 600px) {
+  .hero {
+    padding: 48px 16px 32px;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
