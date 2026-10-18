@@ -116,3 +116,39 @@ async function createNote(event) {
 }
 
 noteForm.addEventListener("submit", createNote);
+
+
+async function deleteNote(li) {
+  const id = li.dataset.id;
+  const isLocal = li.dataset.local === "true";
+
+  setBusy(true);
+
+  try {
+    if (isLocal) {
+      setStatus("Note removed. It only existed on this page, so no server call was needed.", "success");
+    } else {
+      setStatus("Deleting note " + id + "...", "loading");
+      const result = await request(API_URL + "/" + id, { method: "DELETE" });
+      setStatus("Note " + id + " deleted (status " + result.status + ").", "success");
+    }
+
+    li.remove();
+
+    if (notesList.children.length === 0) {
+      showEmptyState();
+    }
+  } catch (error) {
+    setStatus("Sorry, we could not delete that note. Please try again.", "error");
+    console.error(error);
+  } finally {
+    setBusy(false);
+  }
+}
+
+/* One listener on the list will  handles every Delete button */
+notesList.addEventListener("click", function (event) {
+  if (event.target.classList.contains("delete-btn")) {
+    deleteNote(event.target.closest("li"));
+  }
+});
