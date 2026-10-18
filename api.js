@@ -43,3 +43,33 @@ function createNoteItem(note, isLocal) {
   li.append(title, body, deleteBtn);
   return li;
 }
+
+async function loadNotes() {
+  setStatus("Loading notes...", "loading");
+  setBusy(true);
+
+  try {
+    const result = await request(API_URL + "?_limit=10");
+    const notes = result.data;
+
+    notesList.textContent = ""; // empty the list first
+
+    if (notes.length === 0) {
+      showEmptyState();
+      setStatus("The server has no notes.", "success");
+    } else {
+      for (const note of notes) {
+        notesList.appendChild(createNoteItem(note, false));
+      }
+      setStatus("Loaded " + notes.length + " notes from the server.", "success");
+    }
+  } catch (error) {
+    setStatus("Sorry, we could not load your notes. Please try again.", "error");
+    console.error(error);
+  } finally {
+    setBusy(false);
+  }
+}
+
+loadBtn.addEventListener("click", loadNotes);
+showEmptyState();
